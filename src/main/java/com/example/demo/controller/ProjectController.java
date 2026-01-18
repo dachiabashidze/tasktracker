@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Project;
 import com.example.demo.service.ProjectService;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,9 @@ public class ProjectController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
     @PostMapping
-    public void addProject(@RequestBody Project project, @RequestParam Long userId){
-        projectService.addProject(project,userId);
+    public void addProject(@RequestBody Project project, Authentication authentication){
+        String email = authentication.getName();
+        projectService.addProject(project,email);
     }
     @PreAuthorize("""
     hasRole('ROLE_ADMIN')

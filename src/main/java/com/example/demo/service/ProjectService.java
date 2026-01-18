@@ -32,8 +32,9 @@ public class ProjectService {
         return projectRepository.findById(id);
     }
 
-    public void addProject(Project project, Long userId) {
-        Optional<User> owner = userRepository.findById(userId);
+    public void addProject(Project project, String email) {
+        User owner = userRepository.findByEmail(email);
+        project.setOwner(owner);
         project.setCreateDate(LocalDateTime.now());
         project.setUpdateDate(LocalDateTime.now());
         projectRepository.save(project);
