@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
+                .httpBasic(basic -> {})
                 .formLogin(form -> form
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")

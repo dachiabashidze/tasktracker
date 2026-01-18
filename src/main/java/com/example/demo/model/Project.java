@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import com.example.demo.enums.Priority;
 import com.example.demo.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Project {
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password"})
     private User owner;
     @Column(nullable = false)
     private LocalDateTime createDate;
